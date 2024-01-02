@@ -7,6 +7,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 const containerColor = Color(0xFF1D1E33);
 const tappedContainerColor = Color(0xFF111328);
 
+enum Gender { female, male }
+
 class InputPage extends StatefulWidget {
   const InputPage({super.key});
 
@@ -15,7 +17,8 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  Color maleContainerColor = containerColor;
+  //function is replaced with this single line of code -> selectedGender == Gender.female.toString() ? tappedContainerColor : containerColor,
+  /*Color maleContainerColor = containerColor;
   Color femaleContainerColor = containerColor;
 
   void updateColor(int gender) {
@@ -34,9 +37,11 @@ class _InputPageState extends State<InputPage> {
         femaleContainerColor = containerColor;
       }
     }
-  }
+  }*/
+  String? selectedGender;
   int weight = 60;
   int age = 20;
+  int height = 120;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,11 +57,13 @@ class _InputPageState extends State<InputPage> {
                 GestureDetector(
                   onTap: () {
                     setState(() {
-                      updateColor(1);
+                      selectedGender = Gender.male.toString();
                     });
                   },
                   child: ReuseAbleContainer(
-                    color: maleContainerColor,
+                    color: selectedGender == Gender.male.toString()
+                        ? tappedContainerColor
+                        : containerColor,
                     child: const IconWidget(
                       title: "MALE",
                       icon: FontAwesomeIcons.mars,
@@ -66,11 +73,13 @@ class _InputPageState extends State<InputPage> {
                 GestureDetector(
                   onTap: () {
                     setState(() {
-                      updateColor(0);
+                      selectedGender = Gender.female.toString();
                     });
                   },
                   child: ReuseAbleContainer(
-                    color: femaleContainerColor,
+                    color: selectedGender == Gender.female.toString()
+                        ? tappedContainerColor
+                        : containerColor,
                     child: const IconWidget(
                       title: "FEMALE",
                       icon: FontAwesomeIcons.venus,
@@ -89,6 +98,51 @@ class _InputPageState extends State<InputPage> {
                 color: containerColor,
                 borderRadius: BorderRadius.circular(10.0),
               ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "HEIGHT",
+                    style: labelTextStyle,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: [
+                      Text(
+                        height.toString(),
+                        style: numberTextStyle,
+                      ),
+                      const Text(
+                        "cm",
+                        style: labelTextStyle,
+                      )
+                    ],
+                  ),
+                  SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                      activeTrackColor: const Color(0xFFEB1555),
+                      inactiveTrackColor: const Color(0xFF8D8E98),
+                      thumbColor: const Color(0xFFEB1555),
+                      overlayColor: const Color(0xFFEB1555),
+                      thumbShape: const RoundSliderThumbShape(
+                        enabledThumbRadius: 15.0,
+                      ),
+                      overlayShape: const RoundSliderOverlayShape(overlayRadius: 30.0),
+                    ),
+                    child: Slider(
+                        value: height.toDouble(),
+                        min: 120,
+                        max: 220,
+                        onChanged: (double newValue) {
+                          setState(() {
+                            height = newValue.round();
+                          });
+                        }),
+                  )
+                ],
+              ),
             ),
           ),
           Expanded(
@@ -99,8 +153,14 @@ class _InputPageState extends State<InputPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("WEIGHT", style: labelTextStyle,),
-                      Text(weight.toString(), style: numberTextStyle,),
+                      const Text(
+                        "WEIGHT",
+                        style: labelTextStyle,
+                      ),
+                      Text(
+                        weight.toString(),
+                        style: numberTextStyle,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -134,8 +194,14 @@ class _InputPageState extends State<InputPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("AGE", style: labelTextStyle,),
-                      Text(age.toString(), style: numberTextStyle,),
+                      const Text(
+                        "AGE",
+                        style: labelTextStyle,
+                      ),
+                      Text(
+                        age.toString(),
+                        style: numberTextStyle,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
