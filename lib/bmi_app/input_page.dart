@@ -1,8 +1,10 @@
 import 'package:boss_level_chellenge/bmi_app/icon_widget_custom.dart';
-import 'package:boss_level_chellenge/bmi_app/reuseable_container_widget.dart';
+import 'package:boss_level_chellenge/bmi_app/results_page.dart';
 import 'package:boss_level_chellenge/const/const.dart';
+import 'package:boss_level_chellenge/custom_widgets/reuseable_container.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:boss_level_chellenge/controller/bmi_culculate.dart';
 
 const containerColor = Color(0xFF1D1E33);
 const tappedContainerColor = Color(0xFF111328);
@@ -41,13 +43,14 @@ class _InputPageState extends State<InputPage> {
   String? selectedGender;
   int weight = 60;
   int age = 20;
-  int height = 120;
+  int height = 180;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('BMI CALCULATOR'),
         centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
       body: Column(
         children: [
@@ -233,11 +236,25 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            color: const Color(0xFFEB1555),
-            margin: const EdgeInsets.only(top: 10.0),
-            width: double.infinity,
-            height: 70.0,
+          GestureDetector(
+            onTap: (){
+              BMICalculate bmiCalculate = BMICalculate(weight: weight, height: height);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) =>  ResultsPage(
+                  bmiResult: bmiCalculate.calculateBMI(),
+                  resultText: bmiCalculate.getResult(),
+                  interpretation: bmiCalculate.getInterpretation(),
+                )),
+              );
+            },
+            child: Container(
+              color: const Color(0xFFEB1555),
+              margin: const EdgeInsets.only(top: 10.0),
+              width: double.infinity,
+              height: 70.0,
+              child: const Center(child: Text("CALCULATE", style: largeLabelTextStyle,)),
+            ),
           ),
         ],
       ),
