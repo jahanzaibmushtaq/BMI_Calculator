@@ -1,4 +1,4 @@
-import 'package:boss_level_chellenge/bmi_app/input_page.dart';
+import 'package:boss_level_chellenge/screens/input_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const BMICalculator());
