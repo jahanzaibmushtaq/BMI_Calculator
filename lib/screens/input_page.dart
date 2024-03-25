@@ -1,10 +1,11 @@
-import 'package:boss_level_chellenge/const/const.dart';
-import 'package:boss_level_chellenge/custom_widgets/reuseable_container.dart';
-import 'package:boss_level_chellenge/screens/icon_widget_custom.dart';
-import 'package:boss_level_chellenge/screens/results_page.dart';
+import 'package:bmi_calculator/screens/results_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:boss_level_chellenge/controller/bmi_culculate.dart';
+
+import '../const/const.dart';
+import '../controller/bmi_calculate.dart';
+import '../custom_widgets/reuseable_container.dart';
+import 'icon_widget_custom.dart';
 
 const containerColor = Color(0xFF1D1E33);
 const tappedContainerColor = Color(0xFF111328);
