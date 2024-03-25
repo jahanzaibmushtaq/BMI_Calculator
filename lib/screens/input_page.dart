@@ -54,9 +54,12 @@ class _InputPageState extends State<InputPage> {
         automaticallyImplyLeading: false,
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
                   onTap: () {
@@ -104,6 +107,7 @@ class _InputPageState extends State<InputPage> {
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
                     "HEIGHT",
@@ -151,6 +155,7 @@ class _InputPageState extends State<InputPage> {
           ),
           Expanded(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ReuseAbleContainer(
                   color: containerColor,
